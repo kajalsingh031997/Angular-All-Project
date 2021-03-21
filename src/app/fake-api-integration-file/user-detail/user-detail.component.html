@@ -1,0 +1,20 @@
+<h2>Name: {{userDetail.name}}</h2>
+<h2>User Name : {{userDetail.username}}</h2>
+<h2>Email: {{userDetail.email}}</h2>
+<h2>Phone No : {{userDetail.phone}}</h2>
+<h2>Website : {{userDetail.website}}</h2>
+
+<h2 *ngIf="userDetail.company">
+    Company :
+    <ul>
+        <li>{{userDetail.company.name}}</li>
+    </ul>
+</h2>
+
+<h2 *ngIf="userDetail.address">
+    Address :
+    <ul>
+        <li>{{userDetail.address.street}}</li>
+        <li>{{userDetail.address.city}}</li>
+    </ul>
+</h2>
