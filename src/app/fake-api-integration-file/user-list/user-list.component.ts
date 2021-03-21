@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserApiService } from '../user-api.service';
 
 @Component({
@@ -6,25 +6,44 @@ import { UserApiService } from '../user-api.service';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.less']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
 
-  userList : any = [];
-  constructor(private api:UserApiService) { }
+  model: any = {};
+  userList: any = [];
+  constructor(private api: UserApiService) { }
 
   ngOnInit(): void {
     this.getUserList();
   }
 
-  getUserList():void{
+  getUserList(): void {
     this.api.getUserList().subscribe(
-      (res:any)=>{
-        console.log(res);
-        this.userList = res;
+      (res: any) => {
+        let user = JSON.parse(localStorage.getItem('newUser') || '{}');
+        let users = res.concat(user);
+        this.userList = users;
       },
-      (err:any)=>{
+      (err: any) => {
         console.log(err);
       }
     )
   }
 
+  onSubmit() {
+    localStorage.setItem('newUser', JSON.stringify(this.model));
+    this.getUserList();
+  }
+
+  getUserId(id:any){
+    localStorage.setItem('newId', id);
+  }
+
+  delteUser(){
+    this.getUserList();
+  }
+
+  ngOnDestroy():void{
+    localStorage.removeItem('newId');
+    localStorage.removeItem('newUser');
+  }
 }

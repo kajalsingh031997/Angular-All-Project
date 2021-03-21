@@ -11,7 +11,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class LoginComponent implements OnInit, OnChanges, AfterContentChecked, AfterViewChecked, AfterViewInit, AfterContentInit, OnDestroy, DoCheck {
 
-  public model = new UserLogin('username', 'password');
+  model = new UserLogin('username', 'password');
   user ="1";
 
   //it runs first and it create instance of the services
@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit, OnChanges, AfterContentChecked, A
   }
 
   onSubmit() {
-    console.log("working", this.model);
     localStorage.setItem('sessionUser',this.user);
     localStorage.setItem('users',JSON.stringify(this.model));
     this.router.navigate(['/dashboard']); //this helps to navigation another route after success of login
